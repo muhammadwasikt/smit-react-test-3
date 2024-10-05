@@ -2,7 +2,7 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { RiSearch2Line } from "react-icons/ri";
 
-const Crud = () => {
+const Home = () => {
   const [product,setProduct] = useState([])
   const [isLoading,setIsLoading] = useState(false);
   const [filterProduct,setFilterProduct] = useState([]);
@@ -28,7 +28,7 @@ const Crud = () => {
   }
 
   const handleValue = (cat)=>{
-    if(cat==="All"){
+    if(cat==="Categorise"){
       setFilterProduct(product)
     }
     else{
@@ -54,6 +54,9 @@ const Crud = () => {
       handleSearch()
     }
   }
+  const  handleUserSearch = ()=>{
+    handleSearch()
+  }
 
 
   useEffect(()=>{
@@ -65,20 +68,22 @@ const Crud = () => {
       {isLoading ? <div className="loader m-auto mt-[250px]"></div> 
       : 
      <>
-      <div className='w-[100%] flex justify-evenly gap-x-1 p-[20px] bg-[#4379F2]'>
-        <div className='bg-gray-200 outline-none p-2 rounded w-[60%] flex items-center justify-between'>
-        <input onKeyDown={handleEnterSearch} value={search} placeholder='Type here you search......' onChange={(e)=>setSearch(e.target.value)} className='w-[100%] outline-none'/>
+      <div className='w-[100%] max-md:flex-col flex justify-between gap-5 p-[20px] bg-[#4379F2]'>
+        <div className='bg-gray-100 outline-none p-2 px-4 rounded-[20px] w-[100%] flex items-center justify-between'>
+        <input onKeyDown={handleEnterSearch} onInput={handleUserSearch} value={search} placeholder='Type here you search......' onChange={(e)=>setSearch(e.target.value)} className='w-[100%] outline-none'/>
         <RiSearch2Line className='text-[gray]'/>
         </div>
-        <select onChange={(e)=>handleValue(e.target.value)} className='bg-gray-200 lg:px-[10px] md:px-[10px] outline-none sm:px-[5px] w-[20%]'>
-          <option value="All">All</option>
+        <div className='w-[100%] flex justify-center gap-x-[50px]'>
+        <select onChange={(e)=>handleValue(e.target.value)} className='py-2 bg-gray-100 rounded-[20px] px-[10px] outline-none w-[50%]'>
+          <option value="Categorise">Categorise</option>
           {make.map((item,index)=>{
             return(
               <option key={index} value={item} className='border' >{item}</option>
             )
           })}
         </select>
-        <button onClick={handleSearch} className='bg-gray-200 px-4 rounded-xl'>Search</button>
+        <button onClick={handleSearch} className='py-2 bg-gray-100 px-4 rounded-[20px] w-[50%]'>Search</button>
+        </div>
       </div>
 
         {isFound ? <div className='w-[100%] h-[90vh] flex justify-center items-center  '>
@@ -93,11 +98,11 @@ const Crud = () => {
           <div key={id}  className='bg-[#6EC207] rounded-md p-[10px] shadow-md'>
 
           <img src={image}/>
-          <p>Company: {make}</p>
-          <p>Model: {model}</p>
-          <p>Manufacturing year: {year}</p>
-          <p>Color: {color}</p>
-          <p>Price: {price}</p>
+          <p className='text-[20px] border-b-[1px] border-yellow-300 p-2'>Company: <span className='text-[18px]'>{make}</span></p>
+          <p className='text-[20px] border-b-[1px] border-yellow-300 p-2'>Model: <span className='text-[18px]'>{model}</span></p>
+          <p className='text-[20px] border-b-[1px] border-yellow-300 p-2'>Manufacturing year: <span className='text-[18px]'>{year}</span></p>
+          <p className='text-[20px] border-b-[1px] border-yellow-300 p-2'>Color: <span className='text-[18px]'>{color}</span></p>
+          <p className='text-[20px] border-b-[1px] border-yellow-300 p-2'>Price: <span className='text-[18px]'>{price}</span></p>
           </div>
         )
       })}
@@ -109,4 +114,4 @@ const Crud = () => {
   );
 }
 
-export default Crud;
+export default Home;

@@ -1,9 +1,9 @@
-import Crud from "./page/Crud";
+import Home from "./page/Home";
 
 const App = () => {
   return (
     <div>
-      <Crud />
+      <Home />
     </div>
   );
 }
